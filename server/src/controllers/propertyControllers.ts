@@ -224,14 +224,14 @@ export const createProperty = async (
       })
     );
 
-    // Geocoding with fallback for Philippine addresses
+    // Geocoding with smart fallback for Philippine addresses
     let longitude = 0;
     let latitude = 0;
 
     try {
       const geocodingUrl = `https://nominatim.openstreetmap.org/search?${new URLSearchParams(
         {
-          q: `${address}, ${city}, ${state}, ${country}`,  // Better query format
+          q: `${address}, ${city}, ${state}, ${country}`,
           format: "json",
           limit: "1",
         }
@@ -241,18 +241,22 @@ export const createProperty = async (
         headers: {
           "User-Agent": "HiveRealEstate/1.0 (justsomedummyemail@gmail.com)",
         },
-        timeout: 5000, // 5 second timeout
+        timeout: 5000,
       });
       
       if (geocodingResponse.data && geocodingResponse.data.length > 0) {
         longitude = parseFloat(geocodingResponse.data[0].lon);
         latitude = parseFloat(geocodingResponse.data[0].lat);
       } else {
-        // Fallback coordinates based on city
-        console.log(`Geocoding failed for ${city}, using fallback coordinates`);
+        // Smart fallback: search in combined location string
+        console.log(`Geocoding failed, using smart fallback`);
         
-        // Default coordinates for common Philippine cities
-        const fallbackCoords: Record<string, [number, number]> = {
+        // Combine all location fields for better matching
+        const fullLocation = `${address} ${city} ${state} ${country}`.toLowerCase();
+        
+        // Philippine cities and districts with coordinates
+        const locationFallbacks: Record<string, [number, number]> = {
+          // Major cities
           'manila': [120.9842, 14.5995],
           'quezon city': [121.0244, 14.6760],
           'makati': [121.0244, 14.5547],
@@ -263,14 +267,47 @@ export const createProperty = async (
           'caloocan': [120.9668, 14.6507],
           'paranaque': [121.0194, 14.4793],
           'las pinas': [120.9833, 14.4453],
+          'muntinlupa': [121.0437, 14.3832],
+          'valenzuela': [120.9833, 14.6937],
+          'malabon': [120.9567, 14.6650],
+          'navotas': [120.9417, 14.6667],
+          'marikina': [121.1019, 14.6507],
+          
+          // Manila districts (for addresses like "Tondo Manila")
+          'tondo': [120.9667, 14.6167],
+          'divisoria': [120.9833, 14.6000],
+          'binondo': [120.9736, 14.5969],
+          'intramuros': [120.9736, 14.5889],
+          'ermita': [120.9833, 14.5833],
+          'malate': [120.9833, 14.5750],
+          'sampaloc': [121.0000, 14.6167],
+          'san miguel': [121.0167, 14.6000],
+          'sta. cruz': [120.9833, 14.6000],
+          'sta. mesa': [121.0000, 14.6000],
+          'pacita': [121.0167, 14.5833],
+          
+          // Other major PH areas
+          'makati city': [121.0244, 14.5547],
+          'taguig city': [121.0800, 14.5176],
+          'pasay city': [121.0014, 14.5378],
+          'quezon': [121.0244, 14.6760],
         };
         
-        const cityLower = city.toLowerCase().trim();
-        if (fallbackCoords[cityLower]) {
-          [longitude, latitude] = fallbackCoords[cityLower];
-        } else {
-          // Default to Manila if city not found
+        // Try to find a match in the full location string
+        let found = false;
+        for (const [locationName, coords] of Object.entries(locationFallbacks)) {
+          if (fullLocation.includes(locationName)) {
+            [longitude, latitude] = coords;
+            console.log(`Matched location: ${locationName}`);
+            found = true;
+            break;
+          }
+        }
+        
+        // If still no match, default to Manila
+        if (!found) {
           [longitude, latitude] = [120.9842, 14.5995];
+          console.log('Using default Manila coordinates');
         }
       }
     } catch (error) {
