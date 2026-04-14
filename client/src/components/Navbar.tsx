@@ -8,7 +8,7 @@ import { Button } from "./ui/button";
 import { useGetAuthUserQuery } from "@/state/api";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "aws-amplify/auth";
-import { Bell, MessageCircle, Plus, Search } from "lucide-react";
+import { Bell, MessageCircle, Plus, Search, Trash2 } from "lucide-react"; // ← Added Trash2
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -65,50 +65,67 @@ const Navbar = () => {
               </div>
             </div>
           </Link>
+          
           {isDashboardPage && authUser && (
-            <Button
-              variant="secondary"
-              className="md:ml-4 bg-[#FFC107] hover:bg-[#FFA000] text-[#1c252c] font-bold transition-colors duration-200"
-              onClick={() =>
-                router.push(
-                  authUser.userRole?.toLowerCase() === "manager"
-                    ? "/managers/newproperty"
-                    : "/search"
-                )
-              }
-            >
-              {authUser.userRole?.toLowerCase() === "manager" ? (
-                <>
-                  <Plus className="h-4 w-4" />
-                  <span className="hidden md:block ml-2">Add New Property</span>
-                </>
-              ) : (
-                <>
-                  <Search className="h-4 w-4" />
-                  <span className="hidden md:block ml-2">
-                    Search Properties
-                  </span>
-                </>
+            <div className="flex items-center gap-3">
+              {/* DELETE PROPERTY BUTTON - Only show on manager properties list */}
+              {authUser.userRole?.toLowerCase() === "manager" && 
+               pathname === "/managers/properties" && (
+                <Button
+                  variant="destructive"
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold"
+                  onClick={() => alert("Delete property feature - coming soon!")}
+                >
+                  <Trash2 className="h-4 w-4" />
+                  <span className="hidden md:block ml-2">Delete Property</span>
+                </Button>
               )}
-            </Button>
+              
+              {/* ADD NEW PROPERTY / SEARCH BUTTON */}
+              <Button
+                variant="secondary"
+                className="bg-[#FFC107] hover:bg-[#FFA000] text-[#1c252c] font-bold transition-colors duration-200"
+                onClick={() =>
+                  router.push(
+                    authUser.userRole?.toLowerCase() === "manager"
+                      ? "/managers/newproperty"
+                      : "/search"
+                  )
+                }
+              >
+                {authUser.userRole?.toLowerCase() === "manager" ? (
+                  <>
+                    <Plus className="h-4 w-4" />
+                    <span className="hidden md:block ml-2">Add New Property</span>
+                  </>
+                ) : (
+                  <>
+                    <Search className="h-4 w-4" />
+                    <span className="hidden md:block ml-2">
+                      Search Properties
+                    </span>
+                  </>
+                )}
+              </Button>
+            </div>
           )}
         </div>
+        
         {!isDashboardPage && (
           <p className="text-primary-200 hidden md:block">
             Discover a sanctuary where sweet living is just one BUZZ away!
           </p>
         )}
+        
         <div className="flex items-center gap-5">
           {authUser ? (
             <>
               <div className="relative hidden md:block">
                 <MessageCircle className="w-6 h-6 cursor-pointer text-primary-200 hover:text-primary-400" />
-                {/* Changed bg-secondary-700 to bg-red-500 */}
                 <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full ring-2 ring-[#2D2D2D]"></span>
               </div>
               <div className="relative hidden md:block">
                 <Bell className="w-6 h-6 cursor-pointer text-primary-200 hover:text-primary-400" />
-                {/* Changed bg-secondary-700 to bg-red-500 */}
                 <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full ring-2 ring-[#2D2D2D]"></span>
               </div>
 
