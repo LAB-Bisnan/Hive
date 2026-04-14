@@ -51,7 +51,7 @@ const AppSidebar = ({ userType }: AppSidebarProps) => {
   return (
     <Sidebar
       collapsible="icon"
-      className="fixed left-0 bg-white shadow-lg"
+      className="fixed left-0 bg-gray-50 shadow-lg" // Changed bg-white to bg-gray-50
       style={{
         top: `${NAVBAR_HEIGHT}px`,
         height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
@@ -72,7 +72,7 @@ const AppSidebar = ({ userType }: AppSidebarProps) => {
                     {userType === "manager" ? "Manager View" : "Renter View"}
                   </h1>
                   <button
-                    className="hover:bg-gray-100 p-2 rounded-md"
+                    className="hover:bg-gray-200 p-2 rounded-md"
                     onClick={() => toggleSidebar()}
                   >
                     <X className="h-6 w-6 text-gray-600" />
@@ -80,7 +80,7 @@ const AppSidebar = ({ userType }: AppSidebarProps) => {
                 </>
               ) : (
                 <button
-                  className="hover:bg-gray-100 p-2 rounded-md"
+                  className="hover:bg-gray-200 p-2 rounded-md"
                   onClick={() => toggleSidebar()}
                 >
                   <Menu className="h-6 w-6 text-gray-600" />
@@ -103,21 +103,21 @@ const AppSidebar = ({ userType }: AppSidebarProps) => {
                   className={cn(
                     "flex items-center px-7 py-7",
                     isActive
-                      ? "bg-gray-100"
-                      : "text-gray-600 hover:bg-gray-100",
-                    open ? "text-blue-600" : "ml-[5px]"
+                      ? "bg-yellow-100 text-yellow-800" // Active state: Dark yellow text, light yellow bg
+                      : "text-gray-600 hover:bg-gray-200", // Inactive: Gray text, hover gray
+                    open ? "" : "ml-[5px]"
                   )}
                 >
                   <Link href={link.href} className="w-full" scroll={false}>
                     <div className="flex items-center gap-3">
                       <link.icon
                         className={`h-5 w-5 ${
-                          isActive ? "text-blue-600" : "text-gray-600"
+                          isActive ? "text-yellow-800" : "text-gray-600"
                         }`}
                       />
                       <span
                         className={`font-medium ${
-                          isActive ? "text-blue-600" : "text-gray-600"
+                          isActive ? "text-yellow-800" : "text-gray-600"
                         }`}
                       >
                         {link.label}

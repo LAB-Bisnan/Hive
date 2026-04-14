@@ -31,7 +31,7 @@ const Map = () => {
       const marker = createPropertyMarker(property, map);
       const markerElement = marker.getElement();
       const path = markerElement.querySelector("path[fill='#3FB1CE']");
-      if (path) path.setAttribute("fill", "#000000");
+      if (path) path.setAttribute("fill", "#fec629"); 
     });
 
     const resizeMap = () => {
@@ -65,22 +65,42 @@ const createPropertyMarker = (property: Property, map: mapboxgl.Map) => {
       property.location.coordinates.longitude,
       property.location.coordinates.latitude,
     ])
-    .setPopup(
-      new mapboxgl.Popup().setHTML(
-        `
-        <div class="marker-popup">
-          <div class="marker-popup-image"></div>
-          <div>
-            <a href="/search/${property.id}" target="_blank" class="marker-popup-title">${property.name}</a>
-            <p class="marker-popup-price">
-              $${property.pricePerMonth}
-              <span class="marker-popup-price-unit"> / month</span>
-            </p>
-          </div>
-        </div>
-        `
-      )
-    )
+.setPopup(
+  new mapboxgl.Popup({ offset: 25, closeButton: true }).setHTML(
+    `
+    <div style="
+      background: white; 
+      padding: 12px; 
+      border-radius: 8px; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+      min-width: 200px;
+      border: 1px solid #f0f0f0;
+    ">
+      <div style="margin-bottom: 8px;">
+        <a href="/search/${property.id}" style="
+          color: #856404; 
+          font-weight: 600; 
+          font-size: 15px; 
+          text-decoration: none;
+        ">${property.name}</a>
+      </div>
+      <p style="
+        color: #856404; 
+        font-weight: 700; 
+        font-size: 18px; 
+        margin: 0;
+      ">
+        ₱${property.pricePerMonth.toFixed(0)}
+        <span style="
+          font-size: 13px; 
+          font-weight: 400; 
+          color: #666;
+        "> / month</span>
+      </p>
+    </div>
+    `
+  )
+)
     .addTo(map);
   return marker;
 };
