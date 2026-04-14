@@ -224,28 +224,60 @@ export const createProperty = async (
       })
     );
 
-    const geocodingUrl = `https://nominatim.openstreetmap.org/search?${new URLSearchParams(
-      {
-        street: address,
-        city,
-        country,
-        postalcode: postalCode,
-        format: "json",
-        limit: "1",
+    // Geocoding with fallback for Philippine addresses
+    let longitude = 0;
+    let latitude = 0;
+
+    try {
+      const geocodingUrl = `https://nominatim.openstreetmap.org/search?${new URLSearchParams(
+        {
+          q: `${address}, ${city}, ${state}, ${country}`,  // Better query format
+          format: "json",
+          limit: "1",
+        }
+      ).toString()}`;
+      
+      const geocodingResponse = await axios.get(geocodingUrl, {
+        headers: {
+          "User-Agent": "HiveRealEstate/1.0 (justsomedummyemail@gmail.com)",
+        },
+        timeout: 5000, // 5 second timeout
+      });
+      
+      if (geocodingResponse.data && geocodingResponse.data.length > 0) {
+        longitude = parseFloat(geocodingResponse.data[0].lon);
+        latitude = parseFloat(geocodingResponse.data[0].lat);
+      } else {
+        // Fallback coordinates based on city
+        console.log(`Geocoding failed for ${city}, using fallback coordinates`);
+        
+        // Default coordinates for common Philippine cities
+        const fallbackCoords: Record<string, [number, number]> = {
+          'manila': [120.9842, 14.5995],
+          'quezon city': [121.0244, 14.6760],
+          'makati': [121.0244, 14.5547],
+          'taguig': [121.0800, 14.5176],
+          'pasig': [121.0800, 14.5764],
+          'mandaluyong': [121.0394, 14.5794],
+          'pasay': [121.0014, 14.5378],
+          'caloocan': [120.9668, 14.6507],
+          'paranaque': [121.0194, 14.4793],
+          'las pinas': [120.9833, 14.4453],
+        };
+        
+        const cityLower = city.toLowerCase().trim();
+        if (fallbackCoords[cityLower]) {
+          [longitude, latitude] = fallbackCoords[cityLower];
+        } else {
+          // Default to Manila if city not found
+          [longitude, latitude] = [120.9842, 14.5995];
+        }
       }
-    ).toString()}`;
-    const geocodingResponse = await axios.get(geocodingUrl, {
-      headers: {
-        "User-Agent": "RealEstateApp (justsomedummyemail@gmail.com",
-      },
-    });
-    const [longitude, latitude] =
-      geocodingResponse.data[0]?.lon && geocodingResponse.data[0]?.lat
-        ? [
-            parseFloat(geocodingResponse.data[0]?.lon),
-            parseFloat(geocodingResponse.data[0]?.lat),
-          ]
-        : [0, 0];
+    } catch (error) {
+      console.error('Geocoding error:', error);
+      // Default to Manila coordinates on error
+      [longitude, latitude] = [120.9842, 14.5995];
+    }
 
     // create location
     const [location] = await prisma.$queryRaw<Location[]>`
