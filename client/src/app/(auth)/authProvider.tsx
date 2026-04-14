@@ -4,14 +4,14 @@ import React, { useEffect } from "react";
 import { Amplify } from "aws-amplify";
 import {
   Authenticator,
+  Heading,  
   Radio,
   RadioGroupField,
   useAuthenticator,
   View,
 } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";  
 import { useRouter, usePathname } from "next/navigation";
-// @ts-expect-error - TypeScript doesn't understand CSS imports
-import "@aws-amplify/ui-react/styles.css";
 
 // https://docs.amplify.aws/gen1/javascript/tools/libraries/configure-categories/
 Amplify.configure({
@@ -28,18 +28,19 @@ const components = {
   Header() {
     return (
       <View className="mt-4 mb-7">
-        <h3 className="text-2xl font-bold">
-          HI
+        <Heading level={3} className="!text-2xl !font-bold">
+          HI  {/* ← Changed from RENT */}
           <span className="text-primary-500 font-light hover:!text-primary-300">
-            VE
+            VE  {/* ← Changed from IFUL, and secondary → primary for yellow */}
           </span>
-        </h3>
+        </Heading>
         <p className="text-muted-foreground mt-2">
           <span className="font-bold">Welcome!</span> Please sign in to continue
         </p>
       </View>
     );
   },
+
   SignIn: {
     Footer() {
       const { toSignUp } = useAuthenticator();
