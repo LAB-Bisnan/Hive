@@ -27,8 +27,11 @@ const PropertyTenants = () => {
 
   const { data: property, isLoading: propertyLoading } =
     useGetPropertyQuery(propertyId);
-  const { data: leases, isLoading: leasesLoading, isError } =
-    useGetPropertyLeasesQuery(propertyId);
+const { data: leases, isLoading: leasesLoading, isError } =
+  useGetPropertyLeasesQuery(propertyId, {
+    skip: false,
+    refetchOnMountOrArgChange: true,
+  });
   const { data: payments, isLoading: paymentsLoading } =
     useGetPaymentsQuery(propertyId);
 
@@ -83,11 +86,17 @@ const PropertyTenants = () => {
           <hr className="mt-4 mb-1" />
           
           {/* 2. Handle Empty State / Error State Gracefully */}
-          {!leases || leases.length === 0 ? (
-            <div className="text-center py-10 text-gray-500">
-              <p className="text-lg font-medium">No tenants yet</p>
-              <p className="text-sm">Leases for this property will appear here once tenants are added.</p>
-            </div>
+         {isError || !leases || leases.length === 0 ? (
+          <div className="text-center py-10 text-gray-500">
+            <p className="text-lg font-medium">
+              {isError ? "Unable to load tenants" : "No tenants yet"}
+            </p>
+            <p className="text-sm">
+              {isError 
+                ? "Please try refreshing the page." 
+                : "Leases for this property will appear here once tenants are added."}
+            </p>
+          </div>
           ) : (
             <div className="overflow-x-auto">
               <Table>
