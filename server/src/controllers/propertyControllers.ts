@@ -208,12 +208,12 @@ export const createProperty = async (
 
     const photoUrls = await Promise.all(
       files.map(async (file) => {
-        const uploadParams = {
+        const uploadParams: any = {  // ← Use "any" type to bypass strict typing
           Bucket: process.env.S3_BUCKET_NAME!,
           Key: `properties/${Date.now()}-${file.originalname}`,
           Body: file.buffer,
           ContentType: file.mimetype,
-          ACL: 'public-read' as const,  // ← Add "as const" assertion
+          ACL: 'public-read',
         };
 
         const uploadResult = await new Upload({
