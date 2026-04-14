@@ -1,13 +1,11 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
 import React, { useState } from "react";
 
 const ImagePreviews = ({ images }: ImagePreviewsProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Handle empty or invalid images array
   if (!images || images.length === 0) {
     return (
       <div className="relative h-[450px] w-full bg-gray-200 flex items-center justify-center">
@@ -25,26 +23,26 @@ const ImagePreviews = ({ images }: ImagePreviewsProps) => {
   };
 
   return (
-    <div className="relative h-[450px] w-full overflow-hidden">
+    <div className="relative h-[450px] w-full overflow-hidden bg-gray-100">
       {images.map((image, index) => (
         <div
           key={image}
           className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
-            index === currentImageIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+            index === currentImageIndex ? "opacity-100" : "opacity-0"
           }`}
+          style={{ zIndex: index === currentImageIndex ? 10 : 0 }}
         >
-          <Image
+          {/* Use regular img tag instead of Next.js Image */}
+          <img
             src={image}
             alt={`Property Image ${index + 1}`}
-            fill
-            sizes="100vw"
-            priority={index === 0}
-            className="object-cover cursor-pointer transition-transform duration-500 ease-in-out"
+            className="w-full h-full object-cover cursor-pointer"
             onError={(e) => {
               console.error('Image failed to load:', image);
-              // Fallback to placeholder if S3 image fails
-              e.currentTarget.src = '/placeholder-property.jpg';
+              // @ts-ignore
+              e.target.src = 'https://via.placeholder.com/800x450?text=No+Image+Available';
             }}
+            onLoad={() => console.log('Image loaded:', image)}
           />
         </div>
       ))}
@@ -54,14 +52,14 @@ const ImagePreviews = ({ images }: ImagePreviewsProps) => {
         className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-primary-700 bg-opacity-50 p-2 rounded-full focus:outline-none focus:ring focus:ring-secondary-300 z-20"
         aria-label="Previous image"
       >
-        <ChevronLeft className="text-white" />
+        <ChevronLeft className="text-white w-6 h-6" />
       </button>
       <button
         onClick={handleNext}
         className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-primary-700 bg-opacity-50 p-2 rounded-full focus:outline-none focus:ring focus:ring-secondary-300 z-20"
         aria-label="Next image"
       >
-        <ChevronRight className="text-white" />
+        <ChevronRight className="text-white w-6 h-6" />
       </button>
     </div>
   );
