@@ -29,6 +29,7 @@ import {
   User,
 } from "lucide-react";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 import React from "react";
 
 const PaymentMethod = () => {
@@ -87,7 +88,16 @@ const ResidenceCard = ({
     <div className="bg-white rounded-xl shadow-md overflow-hidden p-6 flex-1 flex flex-col justify-between">
       {/* Header */}
       <div className="flex gap-5">
-        <div className="w-64 h-32 object-cover bg-slate-500 rounded-xl"></div>
+        
+        {/* ✅ THIS IS THE PART YOU CHANGED */}
+        <Image
+          src="/placeholder.jpg"
+          alt={property.name}
+          width={256}
+          height={128}
+          className="w-64 h-32 object-cover rounded-xl"
+        />
+        {/* ✅ END OF CHANGE */}
 
         <div className="flex flex-col justify-between">
           <div>
