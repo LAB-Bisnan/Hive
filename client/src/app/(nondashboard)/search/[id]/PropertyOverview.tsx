@@ -63,9 +63,9 @@ const PropertyOverview = ({ propertyId }: PropertyOverviewProps) => {
           </div>
           <div className="border-l border-gray-300 h-10"></div>
           <div>
-            <div className="text-sm text-gray-500">Square Feet</div>
+            <div className="text-sm text-gray-500">Square Meters</div>
             <div className="font-semibold">
-              {property.squareFeet.toLocaleString()} sq ft
+              {property.squareFeet.toLocaleString()} m²
             </div>
           </div>
         </div>

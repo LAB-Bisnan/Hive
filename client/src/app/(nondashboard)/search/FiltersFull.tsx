@@ -208,9 +208,9 @@ const FiltersFull = () => {
           </div>
         </div>
 
-        {/* Square Feet */}
+        {/* Square Meters */}
         <div>
-          <h4 className="font-bold mb-2">Square Feet</h4>
+          <h4 className="font-bold mb-2">Square Meters</h4>
           <Slider
             min={0}
             max={5000}
@@ -228,8 +228,8 @@ const FiltersFull = () => {
             className="[&>.bar]:bg-primary-700"
           />
           <div className="flex justify-between mt-2">
-            <span>{localFilters.squareFeet[0] ?? 0} sq ft</span>
-            <span>{localFilters.squareFeet[1] ?? 5000} sq ft</span>
+            <span>{localFilters.squareFeet[0] ?? 0} m²</span>
+            <span>{localFilters.squareFeet[1] ?? 5000} m²</span>
           </div>
         </div>
 

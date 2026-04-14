@@ -130,7 +130,7 @@ const NewProperty = () => {
                 />
                 <CustomFormField
                   name="squareFeet"
-                  label="Square Feet"
+                  label="Square Meters"
                   type="number"
                 />
               </div>
