@@ -5,13 +5,20 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "example.com",
+        hostname: "hive-s3-images.s3.ap-southeast-2.amazonaws.com",
         port: "",
-        pathname: "/**",
+        pathname: "/properties/**",
       },
       {
         protocol: "https",
-        hostname: "*.amazonaws.com",
+        hostname: "*.s3.ap-southeast-2.amazonaws.com",
+        port: "",
+        pathname: "/properties/**",
+      },
+      // Keep example.com for placeholder images (optional)
+      {
+        protocol: "https",
+        hostname: "example.com",
         port: "",
         pathname: "/**",
       },
