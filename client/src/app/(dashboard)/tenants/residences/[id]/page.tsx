@@ -103,7 +103,7 @@ const ResidenceCard = ({
             </div>
           </div>
           <div className="text-xl font-bold">
-            ${currentLease.rent}{" "}
+            ₱{currentLease.rent}{" "}
             <span className="text-gray-500 text-sm font-normal">/ night</span>
           </div>
         </div>
@@ -210,7 +210,7 @@ const BillingHistory = ({ payments }: { payments: Payment[] }) => {
                 <TableCell>
                   {new Date(payment.paymentDate).toLocaleDateString()}
                 </TableCell>
-                <TableCell>${payment.amountPaid.toFixed(2)}</TableCell>
+                <TableCell>₱{payment.amountPaid.toFixed(2)}</TableCell>
                 <TableCell>
                   <button className="border border-gray-300 text-gray-700 py-2 px-4 rounded-md flex items-center justify-center font-semibold hover:bg-primary-700 hover:text-primary-50">
                     <ArrowDownToLineIcon className="w-4 h-4 mr-1" />
