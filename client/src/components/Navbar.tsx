@@ -58,9 +58,9 @@ const Navbar = () => {
                 className="w-6 h-6"
               />
               <div className="text-xl font-bold">
-                Hive
+                HI
                 <span className="text-secondary-500 font-light hover:!text-primary-300">
-                  IFUL
+                  VE
                 </span>
               </div>
             </div>

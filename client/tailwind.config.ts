@@ -20,21 +20,19 @@ const config: Config = {
         DEFAULT: 'hsl(var(--popover))',
         foreground: 'hsl(var(--popover-foreground))'
       },
-      // SWAPPED: Primary is now your Hive Yellow
       primary: {
         '50': '#fffdf2',
         '100': '#fef9d6',
         '200': '#fdf0aa',
         '300': '#fce274',
         '400': '#fdd34a',
-        '500': '#fec629', // Your Base Color
+        '500': '#fec629', 
         '600': '#deb30f',
         '700': '#ba8d0c',
         '800': '#967011',
         '900': '#7a5b12',
         '950': '#463106'
       },
-      // SWAPPED: Secondary is now your Hive Dark
       secondary: {
         '50': '#f2f3f4',
         '100': '#e2e4e6',
@@ -43,7 +41,7 @@ const config: Config = {
         '400': '#77818a',
         '500': '#5a636c',
         '600': '#464f57',
-        '700': '#1c252c', // Your Base Color
+        '700': '#1c252c', 
         '800': '#11161a',
         '900': '#090b0d',
         '950': '#030304'

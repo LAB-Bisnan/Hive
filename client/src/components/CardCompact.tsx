@@ -92,12 +92,12 @@ const CardCompact = ({
             </span>
             <span className="flex items-center">
               <House className="w-4 h-4 mr-1" />
-              {property.squareFeet}
+              {property.squareFeet} m²
             </span>
           </div>
 
           <p className="text-base font-bold">
-            ${property.pricePerMonth.toFixed(0)}
+            ₱{property.pricePerMonth.toFixed(0)}
             <span className="text-gray-600 text-xs font-normal"> /mo</span>
           </p>
         </div>

@@ -80,7 +80,7 @@ const Card = ({
             </span>
           </div>
           <p className="text-lg font-bold mb-3">
-            ${property.pricePerMonth.toFixed(0)}{" "}
+            ₱{property.pricePerMonth.toFixed(0)}{" "}
             <span className="text-gray-600 text-base font-normal"> /month</span>
           </p>
         </div>
@@ -96,7 +96,7 @@ const Card = ({
           </span>
           <span className="flex items-center">
             <House className="w-5 h-5 mr-2" />
-            {property.squareFeet} sq ft
+            {property.squareFeet} m²
           </span>
         </div>
       </div>
