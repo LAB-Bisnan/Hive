@@ -103,11 +103,13 @@ const Navbar = () => {
             <>
               <div className="relative hidden md:block">
                 <MessageCircle className="w-6 h-6 cursor-pointer text-primary-200 hover:text-primary-400" />
-                <span className="absolute top-0 right-0 w-2 h-2 bg-secondary-700 rounded-full"></span>
+                {/* Changed bg-secondary-700 to bg-red-500 */}
+                <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full ring-2 ring-[#2D2D2D]"></span>
               </div>
               <div className="relative hidden md:block">
                 <Bell className="w-6 h-6 cursor-pointer text-primary-200 hover:text-primary-400" />
-                <span className="absolute top-0 right-0 w-2 h-2 bg-secondary-700 rounded-full"></span>
+                {/* Changed bg-secondary-700 to bg-red-500 */}
+                <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full ring-2 ring-[#2D2D2D]"></span>
               </div>
 
               <DropdownMenu>
