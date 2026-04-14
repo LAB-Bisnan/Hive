@@ -208,20 +208,23 @@ export const createProperty = async (
 
     const photoUrls = await Promise.all(
       files.map(async (file) => {
-        const uploadParams: any = {
+        const { PutObjectCommand } = await import('@aws-sdk/client-s3');
+        
+        const key = `properties/${Date.now()}-${file.originalname}`;
+        
+        const putObjectCommand = new PutObjectCommand({
           Bucket: process.env.S3_BUCKET_NAME!,
-          Key: `properties/${Date.now()}-${file.originalname}`,
+          Key: key,
           Body: file.buffer,
           ContentType: file.mimetype,
-          // ACL: 'public-read',  <-- DELETE THIS LINE
-        };
+        });
 
-        const uploadResult = await new Upload({
-          client: s3Client,
-          params: uploadParams,
-        }).done();
-
-        return uploadResult.Location;
+        await s3Client.send(putObjectCommand);
+        
+        // Construct the public URL manually
+        const publicUrl = `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
+        
+        return publicUrl;
       })
     );
 
