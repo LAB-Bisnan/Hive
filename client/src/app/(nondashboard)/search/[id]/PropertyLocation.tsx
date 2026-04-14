@@ -67,7 +67,7 @@ const PropertyLocation = ({ propertyId }: PropertyDetailsProps) => {
           rel="noopener noreferrer"
           className="flex justify-between items-center hover:underline gap-2 text-primary-600"
         >
-          <Compass className="w-5 h-5" />
+          <Compass className="text-gray-700 hover:text-primary-500" />
           Get Directions
         </a>
       </div>

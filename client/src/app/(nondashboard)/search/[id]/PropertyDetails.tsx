@@ -69,7 +69,7 @@ const PropertyDetails = ({ propertyId }: PropertyDetailsProps) => {
         <h3 className="text-xl font-semibold text-primary-800 dark:text-primary-100 mb-5">
           Fees and Policies
         </h3>
-        <p className="text-sm text-primary-600 dark:text-primary-300 mt-2">
+        <p className="text-sm text-gray-700 dark:text-gray-600 mt-2">
           The fees below are based on community-supplied data and may exclude
           additional fees and utilities.
         </p>
