@@ -4,12 +4,12 @@ import React, { useEffect } from "react";
 import { Amplify } from "aws-amplify";
 import {
   Authenticator,
-  Heading,
   Radio,
   RadioGroupField,
   useAuthenticator,
   View,
 } from "@aws-amplify/ui-react";
+// @ts-ignore - TypeScript doesn't understand CSS imports
 import "@aws-amplify/ui-react/styles.css";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -28,12 +28,12 @@ const components = {
   Header() {
     return (
       <View className="mt-4 mb-7">
-        <Heading level={3} className="!text-2xl !font-bold">
+        <h3 className="text-2xl font-bold">
           HI
-          <span className="text-secondary-500 font-light hover:!text-primary-300">
+          <span className="text-primary-500 font-light hover:!text-primary-300">
             VE
           </span>
-        </Heading>
+        </h3>
         <p className="text-muted-foreground mt-2">
           <span className="font-bold">Welcome!</span> Please sign in to continue
         </p>
