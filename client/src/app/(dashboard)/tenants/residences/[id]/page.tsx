@@ -25,6 +25,7 @@ import {
   FileText,
   Mail,
   MapPin,
+  Trash2,  // ← Add this
   User,
 } from "lucide-react";
 import { useParams } from "next/navigation";
@@ -141,6 +142,16 @@ const ResidenceCard = ({
           <User className="w-5 h-5 mr-2" />
           Manager
         </button>
+        
+        {/* Terminate Lease Button */}
+        <button 
+          onClick={() => alert("Terminate lease feature - coming soon!")}
+          className="bg-red-600 border border-red-700 text-white py-2 px-4 rounded-md flex items-center justify-center hover:bg-red-700 transition-colors"
+        >
+          <Trash2 className="w-5 h-5 mr-2" />
+          Terminate Lease
+        </button>
+        
         <button className="bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded-md flex items-center justify-center hover:bg-primary-700 hover:text-primary-50">
           <Download className="w-5 h-5 mr-2" />
           Download Agreement
