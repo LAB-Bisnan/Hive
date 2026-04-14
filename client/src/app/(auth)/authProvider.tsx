@@ -9,8 +9,9 @@ import {
   useAuthenticator,
   View,
 } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
 import { useRouter, usePathname } from "next/navigation";
+// @ts-expect-error - TypeScript doesn't understand CSS imports
+import "@aws-amplify/ui-react/styles.css";
 
 // https://docs.amplify.aws/gen1/javascript/tools/libraries/configure-categories/
 Amplify.configure({
