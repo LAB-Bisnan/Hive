@@ -46,7 +46,7 @@ const ApplicationCard = ({
               </div>
             </div>
             <div className="text-xl font-semibold">
-              ${application.property.pricePerMonth}{" "}
+              ₱{application.property.pricePerMonth}{" "}
               <span className="text-sm font-normal">/ month</span>
             </div>
           </div>
