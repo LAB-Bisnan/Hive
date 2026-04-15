@@ -18,6 +18,8 @@ const SearchPage = () => {
     (state) => state.global.isFiltersFullOpen
   );
 
+// FREE TEST
+
   useEffect(() => {
     const initialFilters = Array.from(searchParams.entries()).reduce(
       (acc: any, [key, value]) => {
